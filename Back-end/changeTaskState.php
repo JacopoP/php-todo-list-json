@@ -7,8 +7,8 @@
     
     
     $jsonTaskList = file_get_contents("todo.json");
-    $tasksList = json_decode($jsonTaskList);
+    $tasksList = json_decode($jsonTaskList, true);
     $taskN = $_GET['task'];
-    $task = $tasksList[$taskN]->{"done"} = !($task = $tasksList[$taskN]->{"done"});
+    $task = $tasksList[$taskN]["done"] = !($task = $tasksList[$taskN]["done"]);
     $jsonTaskList = json_encode($tasksList);
     file_put_contents('todo.json', $jsonTaskList);
