@@ -33,7 +33,14 @@ export default {
       const params = {
         'task': n,
       }
-      axios.get(('http://localhost/changeTaskState.php'), { params })
+      axios.get((APIServer + 'changeTaskState.php'), { params })
+        .then(() => { this.getData() })
+    },
+    delateTask: function (n) {
+      const params = {
+        'task': n,
+      }
+      axios.get((APIServer + 'delTask.php'), { params })
         .then(() => { this.getData() })
     }
   },
@@ -52,7 +59,7 @@ export default {
   </form>
   <ul>
     <li v-for="(task, index) in this.toDoList" :class="{ 'done': task.done }" :key="index"
-      @click="this.changeTaskState(index)">{{ task.text }}</li>
+      @click="this.changeTaskState(index)" @dblclick="delateTask(index)">{{ task.text }}</li>
   </ul>
 </template>
 
