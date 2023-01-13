@@ -14,6 +14,7 @@ export default {
         .then((res) => { this.toDoList = res.data }
         );
     },
+
     addTask: function (e) {
       e.preventDefault();
       if (this.newTask.length > 0) {
@@ -26,6 +27,14 @@ export default {
             this.newTask = '';
           })
       }
+    },
+
+    changeTaskState: function (n) {
+      const params = {
+        'task': n,
+      }
+      axios.get(('http://localhost/changeTaskState.php'), { params })
+        .then(() => { this.getData() })
     }
   },
 
@@ -42,7 +51,8 @@ export default {
     <input type="submit" value="Crea task">
   </form>
   <ul>
-    <li v-for="(task, index) in this.toDoList" :class="{ 'done': task.done }" :key="index">{{ task.text }}</li>
+    <li v-for="(task, index) in this.toDoList" :class="{ 'done': task.done }" :key="index"
+      @click="this.changeTaskState(index)">{{ task.text }}</li>
   </ul>
 </template>
 
